@@ -9,8 +9,9 @@ public class Stream {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             byte[] b = new byte[inputStream.available()];
+            int t;
             while (true) {
-                int t = inputStream.read(b);
+                t = inputStream.read(b);
                 if (t == -1) {
                     break;
                 } else {
@@ -39,8 +40,9 @@ public class Stream {
     public static boolean copy(InputStream inputStream, OutputStream outputStream) {
         try {
             byte[] b = new byte[inputStream.available()];
+            int t;
             while (true) {
-                int t = inputStream.read(b);
+                t = inputStream.read(b);
                 if (t == -1) {
                     break;
                 } else {
