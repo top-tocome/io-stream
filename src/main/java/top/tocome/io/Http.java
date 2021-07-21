@@ -1,5 +1,6 @@
 package top.tocome.io;
 
+import java.io.FileOutputStream;
 import java.net.URL;
 
 public class Http {
@@ -13,4 +14,12 @@ public class Http {
         return null;
     }
 
+    public static boolean download(String url, String filepath, boolean append) {
+        try {
+            return Stream.copy(new URL(url).openStream(), new FileOutputStream(filepath, append));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

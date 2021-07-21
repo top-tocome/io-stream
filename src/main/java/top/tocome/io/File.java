@@ -22,4 +22,13 @@ public class File {
         }
         return false;
     }
+
+    public static boolean copy(String filePath, String savePath,boolean append) {
+        try {
+            return Stream.copy(new FileInputStream(filePath), new FileOutputStream(filePath, append));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
