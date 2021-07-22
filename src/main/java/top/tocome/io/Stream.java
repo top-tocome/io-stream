@@ -1,6 +1,8 @@
 package top.tocome.io;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class Stream {
@@ -20,6 +22,16 @@ public class Stream {
             }
             inputStream.close();
             return stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String readLine() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            return bufferedReader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
