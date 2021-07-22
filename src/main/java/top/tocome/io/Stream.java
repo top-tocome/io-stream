@@ -7,10 +7,12 @@ import java.io.OutputStream;
 
 public class Stream {
 
+    public static int byteBufferSize = 1024;
+
     public static String read(InputStream inputStream) {
         try {
             StringBuilder stringBuilder = new StringBuilder();
-            byte[] b = new byte[inputStream.available()];
+            byte[] b = new byte[byteBufferSize];
             int t;
             while (true) {
                 t = inputStream.read(b);
@@ -51,7 +53,7 @@ public class Stream {
 
     public static boolean copy(InputStream inputStream, OutputStream outputStream) {
         try {
-            byte[] b = new byte[inputStream.available()];
+            byte[] b = new byte[byteBufferSize];
             int t;
             while (true) {
                 t = inputStream.read(b);
