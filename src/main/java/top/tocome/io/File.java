@@ -25,7 +25,7 @@ public class File {
 
     public static boolean copy(String filePath, String savePath,boolean append) {
         try {
-            return Stream.copy(new FileInputStream(filePath), new FileOutputStream(filePath, append));
+            return Stream.copy(new FileInputStream(filePath), new FileOutputStream(savePath, append));
         } catch (Exception e) {
             e.printStackTrace();
         }
