@@ -1,7 +1,7 @@
 package top.tocome.io;
 
 import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -19,11 +19,30 @@ public class Http {
      */
     public static String get(String url) {
         try {
-            return Stream.readString(getInputStream(url, true));
+            return Stream.readString(getConnection(url).getInputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * post方法
+     *
+     * @param connection HttpURLConnection
+     * @param message    post传递消息
+     * @return post返回消息
+     */
+    public static byte[] post(HttpURLConnection connection, String message) {
+        try {
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            Stream.write(connection.getOutputStream(), message.getBytes());
+            return Stream.readBytes(connection.getInputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
     }
 
     /**
@@ -35,22 +54,21 @@ public class Http {
      */
     public static boolean download(String url, String filepath) {
         try {
-            return Stream.copy(getInputStream(url, true), new FileOutputStream(filepath, false));
+            return Stream.copy(getConnection(url).getInputStream(), new FileOutputStream(filepath));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    private static InputStream getInputStream(String url, boolean setAgent) throws Exception {
-        return setAgent ? setAgent(url, agent).getInputStream() : new URL(url).openStream();
-    }
-
-    private static HttpURLConnection setAgent(String url, String agent) throws Exception {
-        URL url1 = new URL(url);
-        HttpURLConnection connect = (HttpURLConnection) url1.openConnection();
-        connect.setRequestMethod("GET");
-        connect.setRequestProperty("User-Agent", agent);
-        return connect;
+    /**
+     * 获取附带默认User-Agent的HttpURLConnection
+     *
+     * @see Http
+     */
+    public static HttpURLConnection getConnection(String url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestProperty("User-Agent", agent);
+        return connection;
     }
 }
