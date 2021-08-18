@@ -38,7 +38,7 @@ public class File {
     }
 
     /**
-     * 复制文件内容
+     * 复制文件
      *
      * @param filePath 源文件路径
      * @param savePath 保存的路径
