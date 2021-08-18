@@ -62,9 +62,7 @@ public class Http {
     }
 
     /**
-     * 获取附带默认User-Agent的HttpURLConnection
-     *
-     * @see Http
+     * 获取附带默认{@link Http#agent User-Agent}的HttpURLConnection
      */
     public static HttpURLConnection getConnection(String url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

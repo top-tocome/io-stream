@@ -33,7 +33,28 @@ public class Directory {
             }
     }
 
+    /**
+     * 复制源目录下所有文件到目标目录下
+     *
+     * @param directoryPath 源目录
+     * @param savePath      目标目录
+     */
     public static void copy(String directoryPath, String savePath) {
+        ArrayList<File> files = new ArrayList<>();
+        ArrayList<File> directories = new ArrayList<>();
+        File directory = new File(directoryPath);
+        getAll(directory, files, directories);
 
+        //将字符串转换为正则表达式
+        directoryPath = directory.getPath().replace("\\", "\\\\");
+        savePath = savePath.replace("\\", "\\\\");
+
+        new File(savePath).mkdirs();
+        for (File d : directories) {
+            new File(d.getPath().replaceFirst(directoryPath, savePath)).mkdirs();
+        }
+        for (File f : files) {
+            top.tocome.io.File.copy(f.getPath(), f.getPath().replaceFirst(directoryPath, savePath), false);
+        }
     }
 }
